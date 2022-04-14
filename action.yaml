@@ -1,0 +1,51 @@
+# action.yml
+name: 'Docker Build Tag Publish'
+description: 'Build, Tag, and, and Publish a docker image'
+branding: 
+  icon: tag
+  color: red
+inputs:
+  checkout:
+    description: Checkout the repository
+    required: false
+    default: 'true'
+  image_tag:
+    description: Tag to override default Logic
+    required: false
+    default: ''
+  use_sha:
+    description: Use the SHA for the tag.  Overrides the default logic.
+    required: false
+    default: 'false'
+  
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout if required
+      if: $checkout
+      uses: actions/checkout@v3
+    - name: Tagging Logic
+      run: |
+        default=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
+        echo "Default branch: $default"
+        echo "default=$default" >> $GITHUB_ENV
+        branch=${GITHUB_REF##*/}
+        echo "Branch: $branch"
+        if ( github.event_name == 'pull_request' )
+          then
+            tag="pr-$branch"
+        elif ( image_tag )
+          then  
+            tag=$image_tag
+        elif ( use_sha == 'true' )
+          then  
+            tag=${GITHUB_SHA}
+        elif ( $branch == $default )
+          then  
+            tag="latest"
+        else
+            tag=ref
+        fi
+        echo "Tag is: $tag"
+        echo "tag=$tag" >>  $GITHUB_ENV
