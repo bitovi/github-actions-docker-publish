@@ -36,7 +36,7 @@ runs:
         if [[ github.event_name == 'pull_request' ]]
           then
             tag="pr-$branch"
-        elif ( ${{ inputs.image_tag }} )
+        elif [ -z '${{ inputs.image_tag }}' ]
           then  
             tag=${{ inputs.image_tag }}
         elif [[ ${{ inputs.sha }} == 'true' ]]
