@@ -23,15 +23,17 @@ runs:
   using: "composite"
   steps:
     - name: Checkout if required
-      if: $checkout
+      if: ${{ checkout $}}
       uses: actions/checkout@v3
     - name: Tagging Logic
+      shell: bash
       run: |
         default=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
         echo "Default branch: $default"
         echo "default=$default" >> $GITHUB_ENV
         branch=${GITHUB_REF##*/}
         echo "Branch: $branch"
+        printenv
         if ( github.event_name == 'pull_request' )
           then
             tag="pr-$branch"
