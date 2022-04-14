@@ -23,7 +23,7 @@ runs:
   using: "composite"
   steps:
     - name: Checkout if required
-      if: ${{ checkout $}}
+      if: ${{ inputs.checkout == 'true' }}
       uses: actions/checkout@v3
     - name: Tagging Logic
       shell: bash
