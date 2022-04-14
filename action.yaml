@@ -39,10 +39,10 @@ runs:
         elif [ -z '${{ inputs.image_tag }}' ]
           then  
             tag='${{ inputs.image_tag }}'
-        elif [[ '${{ inputs.sha }}'' == 'true' ]]
+        elif [[ '${{ inputs.sha }}' == 'true' ]]
           then  
             tag=${GITHUB_SHA}
-        elif  [[ '$branch' == '$default ' ]]
+        elif  [[ '$branch' == '$default' ]]
           then  
             tag="latest"
         else
