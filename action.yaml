@@ -12,7 +12,6 @@ inputs:
   image_tag:
     description: Tag to override default Logic
     required: false
-    default: ''
   use_sha:
     description: Use the SHA for the tag.  Overrides the default logic.
     required: false
