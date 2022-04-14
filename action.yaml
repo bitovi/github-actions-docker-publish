@@ -36,17 +36,22 @@ runs:
         if [[ github.event_name == 'pull_request' ]]
           then
             tag="pr-$branch"
+            echo "Pull Request"
         elif [ -z '${{ inputs.image_tag }}' ]
           then  
             tag='${{ inputs.image_tag }}'
+            echo "Tag provided"
         elif [[ '${{ inputs.sha }}' == 'true' ]]
           then  
             tag=${GITHUB_SHA}
+            echo "Using SHA"
         elif  [[ '$ref' == '$default' ]]
           then  
             tag="latest"
+            echo "Latest"
         else
             tag='$ref'
+            echo "using $ref"
         fi
         echo "Tag is: $tag"
         echo "tag=$tag" >>  $GITHUB_ENV
