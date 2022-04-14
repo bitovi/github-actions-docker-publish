@@ -38,8 +38,8 @@ runs:
             tag="pr-$branch"
         elif [ -z '${{ inputs.image_tag }}' ]
           then  
-            tag=${{ inputs.image_tag }}
-        elif [[ ${{ inputs.sha }} == 'true' ]]
+            tag='${{ inputs.image_tag }}'
+        elif [[ '${{ inputs.sha }}'' == 'true' ]]
           then  
             tag=${GITHUB_SHA}
         elif  [[ '$branch' == '$default ' ]]
