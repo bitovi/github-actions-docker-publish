@@ -31,23 +31,22 @@ runs:
         default=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
         echo "Default branch: $default"
         echo "default=$default" >> $GITHUB_ENV
-        branch=${GITHUB_REF##*/}
-        echo "Branch: $branch"
-        printenv
-        if ( github.event_name == 'pull_request' )
+        ref=${GITHUB_REF##*/}
+        echo "Ref: $ref"
+        if [[ github.event_name == 'pull_request' ]]
           then
             tag="pr-$branch"
-        elif ( image_tag )
+        elif ( ${{ inputs.image_tag }} )
           then  
-            tag=$image_tag
-        elif ( use_sha == 'true' )
+            tag=${{ inputs.image_tag }}
+        elif [[ ${{ inputs.sha }} == 'true' ]]
           then  
             tag=${GITHUB_SHA}
-        elif ( $branch == $default )
+        elif  [[ '$branch' == '$default ' ]]
           then  
             tag="latest"
         else
-            tag=ref
+            tag=$ref
         fi
         echo "Tag is: $tag"
         echo "tag=$tag" >>  $GITHUB_ENV
