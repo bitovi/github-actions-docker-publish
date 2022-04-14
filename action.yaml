@@ -12,6 +12,7 @@ inputs:
   image_tag:
     description: Tag to override default Logic
     required: false
+    default: 'null'
   use_sha:
     description: Use the SHA for the tag.  Overrides the default logic.
     required: false
@@ -36,7 +37,7 @@ runs:
           then
             tag="pr-$branch"
             echo "Pull Request"
-        elif [ -z '${{ inputs.image_tag }}' ]
+        elif [[ '${{ inputs.image_tag }}' != 'null' ]]
           then  
             tag='${{ inputs.image_tag }}'
             echo "Tag provided"
