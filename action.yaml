@@ -30,6 +30,7 @@ runs:
       run: |
         #Defining the Default branch variable
         DEFAULT_BRANCH=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
+        IMAGE_TAG=${{ inputs.IMAGE_TAG }}
 
         REPO_NAME=$(echo $GITHUB_REPOSITORY | sed 's/^.*\///')
         ORG_NAME=$(echo $GITHUB_REPOSITORY | sed 's/\/.*//')
