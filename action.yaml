@@ -43,7 +43,7 @@ runs:
         echo "BRANCH_OR_TAG_NAME: $BRANCH_OR_TAG_NAME"
 
         if [ -z "$IMAGE_TAG" ]; then
-          if [[ ${{ image.use_sha }} == 'true' ]]; then
+          if [[ ${{ inputs.use_sha }} == 'true' ]]; then
             IMAGE_TAG="$GITHUB_SHA"
           else
             if [ "$TAG_OR_HEAD" == "tags" ]; then
