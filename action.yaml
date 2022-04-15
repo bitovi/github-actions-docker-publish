@@ -17,7 +17,14 @@ inputs:
     description: Use the SHA for the tag.  Overrides the default logic.
     required: false
     default: 'false'
-  
+  org_name:
+    description: Docker org name.  
+    required: false
+    default: ''
+  repo_name:
+    description: Name of the docker repository
+    required: false
+    default: ''
 
 runs:
   using: "composite"
@@ -25,20 +32,19 @@ runs:
     - name: Checkout if required
       if: ${{ inputs.checkout == 'true' }}
       uses: actions/checkout@v3
-    - name: Tagging Logic
+
+  
+    
+    - name: Build - Tag - Push
       shell: bash
       run: |
         #Defing variables
         DEFAULT_BRANCH=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
         IMAGE_TAG=${{ inputs.image_tag }}
         
-        REPO_NAME=$(echo $GITHUB_REPOSITORY | sed 's/^.*\///')
-        ORG_NAME=$(echo $GITHUB_REPOSITORY | sed 's/\/.*//')
         TAG_OR_HEAD="$(echo $GITHUB_REF | cut -d / -f2)"
         BRANCH_OR_TAG_NAME=$(echo $GITHUB_REF | cut -d / -f3)
 
-        echo "REPO_NAME: $REPO_NAME"
-        echo "ORG_NAME: $ORG_NAME"
         echo "TAG_OR_HEAD: $TAG_OR_HEAD"
         echo "BRANCH_OR_TAG_NAME: $BRANCH_OR_TAG_NAME"
 
@@ -57,4 +63,20 @@ runs:
             fi
           fi
         fi
-        echo "Image Tag: $IMAGE_TAG"
+        echo "Image_Tag: $IMAGE_TAG"
+
+        if [ -z "${inputs.org_name}" ] ; then
+          ORG_NAME=$(echo $GITHUB_REPOSITORY | sed 's/\/.*//')
+        else
+          ORG_NAME="${{ inputs.org_name }}"
+        fi
+        echo "ORG_NAME: $ORG_NAME"
+
+         if [ -z "${inputs.repo_name}" ] ; then
+          REPO_NAME=$(echo $GITHUB_REPOSITORY | sed 's/^.*\///')
+        else
+          REPO_NAME="${{ inputs.repo_name }}"
+        fi
+        echo "REPO_NAME: $REPO_NAME"
+
+        #docker build . -t $ORN_NAME/$REPO_NAME:${{ env.tag }} .
