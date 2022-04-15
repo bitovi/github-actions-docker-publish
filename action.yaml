@@ -50,7 +50,7 @@ runs:
             tag="latest"
             echo "Latest"
         else
-            tag='$ref'
+            tag=$ref
             echo "using $ref"
         fi
         echo "Tag is: $tag"
