@@ -28,21 +28,22 @@ runs:
     - name: Tagging Logic
       shell: bash
       run: |
-        #Defining the Default branch variable
+        #Defing variables
         DEFAULT_BRANCH=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
         IMAGE_TAG=${{ inputs.image_tag }}
-        echo 
+        
         REPO_NAME=$(echo $GITHUB_REPOSITORY | sed 's/^.*\///')
         ORG_NAME=$(echo $GITHUB_REPOSITORY | sed 's/\/.*//')
         TAG_OR_HEAD="$(echo $GITHUB_REF | cut -d / -f2)"
         BRANCH_OR_TAG_NAME=$(echo $GITHUB_REF | cut -d / -f3)
+
         echo "REPO_NAME: $REPO_NAME"
         echo "ORG_NAME: $ORG_NAME"
         echo "TAG_OR_HEAD: $TAG_OR_HEAD"
         echo "BRANCH_OR_TAG_NAME: $BRANCH_OR_TAG_NAME"
 
         if [ -z "$IMAGE_TAG" ]; then
-          if [ -n "$USE_COMMIT_HASH_FOR_ARTIFACTS" ]; then
+          if [[ ${{ image.use_sha }} == 'true' ]]; then
             IMAGE_TAG="$GITHUB_SHA"
           else
             if [ "$TAG_OR_HEAD" == "tags" ]; then
