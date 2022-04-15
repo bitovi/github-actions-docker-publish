@@ -28,6 +28,7 @@ runs:
     - name: Tagging Logic
       shell: bash
       run: |
+        DEFAULT_BRANCH=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
         REPO_NAME=$(echo $GITHUB_REPOSITORY | sed 's/^.*\///')
         ORG_NAME=$(echo $GITHUB_REPOSITORY | sed 's/\/.*//')
         TAG_OR_HEAD="$(echo $GITHUB_REF | cut -d / -f2)"
@@ -36,6 +37,24 @@ runs:
         echo "ORG_NAME: $ORG_NAME"
         echo "TAG_OR_HEAD: $TAG_OR_HEAD"
         echo "BRANCH_OR_TAG_NAME: $BRANCH_OR_TAG_NAME"
+
+        if [ -z "$IMAGE_TAG" ]; then
+          if [ -n "$USE_COMMIT_HASH_FOR_ARTIFACTS" ]; then
+            IMAGE_TAG="$GITHUB_SHA"
+          else
+            if [ "$TAG_OR_HEAD" == "tags" ]; then
+              IMAGE_TAG="$BRANCH_OR_TAG_NAME"
+            elif [ "$TAG_OR_HEAD" == "heads" ] && [ "$BRANCH_OR_TAG_NAME" == "$DEFAULT_BRANCH" ]; then
+              IMAGE_TAG="latest"
+            elif [ "$TAG_OR_HEAD" == "pull" ]; then
+              IMAGE_TAG="pr-${BRANCH_OR_TAG_NAME}"
+            else
+              IMAGE_TAG="$BRANCH_OR_TAG_NAME"
+            fi
+          fi
+        fi
+        echo "Image Tag: $IMAGE_TAG"
+
         default=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
         echo "Default branch: $default"
         echo "default=$default" >> $GITHUB_ENV
