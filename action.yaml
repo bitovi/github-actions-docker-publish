@@ -9,7 +9,7 @@ inputs:
     description: Checkout the repository
     required: false
     default: 'true'
-  IMAGE_TAG:
+  image_tag:
     description: Tag to override default Logic
     required: false
     default: ''
@@ -30,8 +30,8 @@ runs:
       run: |
         #Defining the Default branch variable
         DEFAULT_BRANCH=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
-        IMAGE_TAG=${{ inputs.IMAGE_TAG }}
-
+        IMAGE_TAG=${{ inputs.image_tag }}
+        echo 
         REPO_NAME=$(echo $GITHUB_REPOSITORY | sed 's/^.*\///')
         ORG_NAME=$(echo $GITHUB_REPOSITORY | sed 's/\/.*//')
         TAG_OR_HEAD="$(echo $GITHUB_REF | cut -d / -f2)"
