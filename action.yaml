@@ -38,7 +38,6 @@ runs:
     - name: Build - Tag - Push
       shell: bash
       run: |
-        #Defing variables
         DEFAULT_BRANCH=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
         IMAGE_TAG=${{ inputs.image_tag }}
         
@@ -65,14 +64,14 @@ runs:
         fi
         echo "Image_Tag: $IMAGE_TAG"
 
-        if [ -z "${inputs.org_name}" ] ; then
+        if [ -z "${{ inputs.org_name }}" ] ; then
           ORG_NAME=$(echo $GITHUB_REPOSITORY | sed 's/\/.*//')
         else
           ORG_NAME="${{ inputs.org_name }}"
         fi
         echo "ORG_NAME: $ORG_NAME"
 
-         if [ -z "${inputs.repo_name}" ] ; then
+         if [ -z "${{ inputs.repo_name }}" ] ; then
           REPO_NAME=$(echo $GITHUB_REPOSITORY | sed 's/^.*\///')
         else
           REPO_NAME="${{ inputs.repo_name }}"
