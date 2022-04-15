@@ -35,7 +35,7 @@ runs:
         head=${GITHUB_HEAD_REF}
         echo "Ref: $ref"
         printenv
-        if [[ ${{ GITHUB_EVENT_NAME }} == 'pull_request' ]]
+        if [[ ${GITHUB_EVENT_NAME} == 'pull_request' ]]
           then
             tag="pr-$head"
             echo "Pull Request"
