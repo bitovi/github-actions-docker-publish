@@ -28,13 +28,20 @@ runs:
     - name: Tagging Logic
       shell: bash
       run: |
+        REPO_NAME=$(echo $GITHUB_REPOSITORY | sed 's/^.*\///')
+        ORG_NAME=$(echo $GITHUB_REPOSITORY | sed 's/\/.*//')
+        TAG_OR_HEAD="$(echo $GITHUB_REF | cut -d / -f2)"
+        BRANCH_OR_TAG_NAME=$(echo $GITHUB_REF | cut -d / -f3)
+        echo "REPO_NAME: $REPO_NAME"
+        echo "ORG_NAME: $ORG_NAME"
+        echo "TAG_OR_HEAD: $TAG_OR_HEAD"
+        echo "BRANCH_OR_TAG_NAME: $BRANCH_OR_TAG_NAME"
         default=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
         echo "Default branch: $default"
         echo "default=$default" >> $GITHUB_ENV
         ref=${GITHUB_REF##*/}
         head=${GITHUB_HEAD_REF}
         echo "Ref: $ref"
-        printenv
         if [[ ${GITHUB_EVENT_NAME} == 'pull_request' ]]
           then
             tag="pr-$head"
