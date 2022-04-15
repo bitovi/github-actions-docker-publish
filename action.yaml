@@ -45,7 +45,7 @@ runs:
           then  
             tag=${GITHUB_SHA}
             echo "Using SHA"
-        elif  [[ '$ref' == '$default' ]]
+        elif  [[ $ref == $default ]]
           then  
             tag="latest"
             echo "Latest"
