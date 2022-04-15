@@ -9,10 +9,10 @@ inputs:
     description: Checkout the repository
     required: false
     default: 'true'
-  image_tag:
+  IMAGE_TAG:
     description: Tag to override default Logic
     required: false
-    default: 'null'
+    default: ''
   use_sha:
     description: Use the SHA for the tag.  Overrides the default logic.
     required: false
@@ -28,7 +28,9 @@ runs:
     - name: Tagging Logic
       shell: bash
       run: |
+        #Defining the Default branch variable
         DEFAULT_BRANCH=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
+
         REPO_NAME=$(echo $GITHUB_REPOSITORY | sed 's/^.*\///')
         ORG_NAME=$(echo $GITHUB_REPOSITORY | sed 's/\/.*//')
         TAG_OR_HEAD="$(echo $GITHUB_REF | cut -d / -f2)"
@@ -46,40 +48,11 @@ runs:
               IMAGE_TAG="$BRANCH_OR_TAG_NAME"
             elif [ "$TAG_OR_HEAD" == "heads" ] && [ "$BRANCH_OR_TAG_NAME" == "$DEFAULT_BRANCH" ]; then
               IMAGE_TAG="latest"
-            elif [ "$TAG_OR_HEAD" == "pull" ]; then
-              IMAGE_TAG="pr-${BRANCH_OR_TAG_NAME}"
+            elif [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
+              IMAGE_TAG="pr-${GITHUB_HEAD_REF}"
             else
               IMAGE_TAG="$BRANCH_OR_TAG_NAME"
             fi
           fi
         fi
         echo "Image Tag: $IMAGE_TAG"
-
-        default=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
-        echo "Default branch: $default"
-        echo "default=$default" >> $GITHUB_ENV
-        ref=${GITHUB_REF##*/}
-        head=${GITHUB_HEAD_REF}
-        echo "Ref: $ref"
-        if [[ ${GITHUB_EVENT_NAME} == 'pull_request' ]]
-          then
-            tag="pr-$head"
-            echo "Pull Request"
-        elif [[ '${{ inputs.image_tag }}' != 'null' ]]
-          then  
-            tag='${{ inputs.image_tag }}'
-            echo "Tag provided"
-        elif [[ '${{ inputs.sha }}' == 'true' ]]
-          then  
-            tag=${GITHUB_SHA}
-            echo "Using SHA"
-        elif  [[ $ref == $default ]]
-          then  
-            tag="latest"
-            echo "Latest"
-        else
-            tag=$ref
-            echo "using $ref"
-        fi
-        echo "Tag is: $tag"
-        echo "tag=$tag" >>  $GITHUB_ENV
