@@ -32,11 +32,12 @@ runs:
         echo "Default branch: $default"
         echo "default=$default" >> $GITHUB_ENV
         ref=${GITHUB_REF##*/}
+        head=${GITHUB_HEAD_REF}
         echo "Ref: $ref"
         printenv
-        if [[ github.event_name == 'pull_request' ]]
+        if [[ ${{ GITHUB_EVENT_NAME }} == 'pull_request' ]]
           then
-            tag="pr-$branch"
+            tag="pr-$head"
             echo "Pull Request"
         elif [[ '${{ inputs.image_tag }}' != 'null' ]]
           then  
