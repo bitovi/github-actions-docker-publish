@@ -33,6 +33,7 @@ runs:
         echo "default=$default" >> $GITHUB_ENV
         ref=${GITHUB_REF##*/}
         echo "Ref: $ref"
+        printenv
         if [[ github.event_name == 'pull_request' ]]
           then
             tag="pr-$branch"
