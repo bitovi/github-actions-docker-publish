@@ -2,6 +2,8 @@
 
 This GitHub Action will build, tag, an publish your docker image.  The logic has been designed for our use case, but can be modifed for yours.
 
+The image name will default to be the same as the GitHub Repo.  
+
 # Default Tagging Logic
 The tagging logic works as follows:
 1. If you have a value for `image_tag` then we will use that value.
@@ -28,7 +30,7 @@ The following can be used as `step.with` keys.  T/F types expect true or false. 
 
 ## Example 1
 
-This will checkout the code, build, tag and push using the default tags
+This will checkout the code, build, tag and push using the default tags. 
 
 ```yaml
 -   uses: bitovi/github-actions-docker-publish@1.0.0
