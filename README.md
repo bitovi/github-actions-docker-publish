@@ -46,10 +46,10 @@ Everything is custom
       uses: bitovi/github-actions-docker-publish@1.0.0
       with:
         checkout: 'false'
-        image_tag: bad_robot
+        image_tag: it
         sha: 'true' # won't do anything since image_tag is set
-        org_name: stoopid
-        repo_name: monkey
+        org_name: bitovi
+        repo_name: deploy-eks-helm
 ```
 
 ## License
