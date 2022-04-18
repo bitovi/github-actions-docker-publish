@@ -16,6 +16,8 @@ The following can be used as `step.with` keys.  T/F types expect true or false. 
 
 | Name             | Type    | Req | Description                  | Default |
 |------------------|---------|-----|------------------------------|---------|
+| `docker_username` | string | Yes | Dockerhub username | N/A |
+| `docker_password` | string | Yes | Dockerhub Password | N/A |
 | `checkout` | T/F | No | Determines if we should chckout the repository.  Set to `false` if this is being done in an eariler step | `true` |
 | `image_tag` | string | No | Use this tag instead of the tagging logic.  | See tagging logic |
 | `use_latest` | T/F | No | The default branch gets a latest tag | `true` |
@@ -30,11 +32,14 @@ This will checkout the code, build, tag and push using the default tags
 
 ```yaml
 -   uses: bitovi/github-actions-docker-publish@1.0.0
+      with:
+        docker_username: ${{ secrets.DOCKERHUB_USERNAME }}
+        docker_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 ```
 
 ## Example 2
 
-Everything is custom
+Here we check the code out since we make a change before the build / publish step.
 
 ```yaml
   steps:
@@ -45,6 +50,8 @@ Everything is custom
     - name: Build image
       uses: bitovi/github-actions-docker-publish@1.0.0
       with:
+        docker_username: ${{ secrets.DOCKERHUB_USERNAME }}
+        docker_password: ${{ secrets.DOCKERHUB_PASSWORD }}
         checkout: 'false'
         image_tag: it
         sha: 'true' # won't do anything since image_tag is set
@@ -59,4 +66,4 @@ The scripts and documentation in this project are released under the [MIT Licens
 [Bitovi](https://www.bitovi.com/) is a proud supporter of Open Source software.
 
 ## Customize
-Please feel free to copy and customize this action for your specific use case.  Not sure where to start, Bitovi has consultants that can help.  Please contat us at contact@bitovi.com.
+Please feel free to copy and customize this action for your specific use case, just give some credit to Bitovi as the orignal authors.  Not sure where to start, Bitovi has consultants that can help.  Please contat us at contact@bitovi.com.

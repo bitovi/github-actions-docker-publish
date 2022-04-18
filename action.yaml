@@ -29,14 +29,12 @@ inputs:
     description: Tag default branch with latest tag instead of branch name.
     required: false
     default: 'true'
-  docker_user:
+  docker_username:
     description: Docker user
-    required: false
-    default: ${{ secrets.DOCKERHUB_USERNAME }}
+    required: true
   docker_password:
     description: Docker password
-    required: false
-    default: ${{ secrets.DOCKERHUB_PASSWORD }
+    required: true
 
 runs:
   using: "composite"
@@ -48,7 +46,7 @@ runs:
     - name: Login to Docker Hub
       uses: docker/login-action@v1
       with:
-          username: ${{ inputs.docker_user }}
+          username: ${{ inputs.docker_username }}
           password: ${{ inputs.docker_password }}   
     
     - name: Build - Tag - Push
@@ -88,6 +86,9 @@ runs:
         fi
 
         $IMAGE_NAME="ORG_NAME/$REPO_NAME"
-        echo "Building $IMAGE_NAME"
 
-        docker build -t $IMAGE_NAME:$IMAGE_TAG .
+        echo "Building $IMAGE_NAME"
+        docker build --pull -t $IMAGE_NAME:$IMAGE_TAG .
+
+        echo "Pushing docker image $IMAGE_NAME:$IMAGE_TAG"
+        docker push $IMAGE_NAME:$IMAGE_TAG
