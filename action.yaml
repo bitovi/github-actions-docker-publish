@@ -56,8 +56,6 @@ runs:
         IMAGE_TAG=${{ inputs.image_tag }}
         
         BRANCH_OR_TAG_NAME=${GITHUB_REF##*/}
-
-        echo "TAG_OR_HEAD: $TAG_OR_HEAD"
         echo "BRANCH_OR_TAG_NAME: $BRANCH_OR_TAG_NAME"
 
         if [ -z "$IMAGE_TAG" ]; then
@@ -85,7 +83,7 @@ runs:
           REPO_NAME="${{ inputs.repo_name }}"
         fi
 
-        $IMAGE_NAME="ORG_NAME/$REPO_NAME"
+        $IMAGE_NAME="$ORG_NAME/$REPO_NAME"
 
         echo "Building $IMAGE_NAME"
         docker build --pull -t $IMAGE_NAME:$IMAGE_TAG .
