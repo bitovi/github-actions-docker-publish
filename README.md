@@ -27,13 +27,23 @@ The following can be used as `step.with` keys.  T/F types expect true or false. 
 | `org_name` | string | No | Docker org name.   | GitHub Org Name |
 | `repo_name` | string | No | The name of the Docker Repository.  | GitHub repo name. |
 
+### Outputs
+
+The following outputs can be used.
+
+| Name | Description |
+|------|-------------|
+| image | The imagename in the format org_name/repo_name |
+| tag | The tag we used on the image above |
+
 
 ## Example 1
 
 This will checkout the code, build, tag and push using the default tags. 
 
 ```yaml
--   uses: bitovi/github-actions-docker-publish@1.0.0
+-   id: docker-publish
+    uses: bitovi/github-actions-docker-publish@1.0.0
       with:
         docker_username: ${{ secrets.DOCKERHUB_USERNAME }}
         docker_password: ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -41,7 +51,7 @@ This will checkout the code, build, tag and push using the default tags.
 
 ## Example 2
 
-Here we check the code out since we make a change before the build / publish step.
+Here we check the code out since we make a change before the build / publish step.  We also show how to get the image and tag for later use.
 
 ```yaml
   steps:
@@ -49,7 +59,8 @@ Here we check the code out since we make a change before the build / publish ste
       uses: actions/checkout@v3
     - name: do something to the code
       run: echo "Changed code" > text.txt
-    - name: Build image
+    - id: docker-publish
+      name: Build image
       uses: bitovi/github-actions-docker-publish@1.0.0
       with:
         docker_username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -59,6 +70,9 @@ Here we check the code out since we make a change before the build / publish ste
         sha: 'true' # won't do anything since image_tag is set
         org_name: bitovi
         repo_name: deploy-eks-helm
+    - run: |
+        echo "Image Created:  ${{ steps.docker-publish.outputs.image }}"
+        echo "Tag Created: ${{ steps.docker-publish.outputs.tag }}"
 ```
 
 ## License

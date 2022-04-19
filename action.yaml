@@ -1,5 +1,6 @@
 # action.yml
 name: 'Docker Build Tag Publish'
+author: Bitovi
 description: 'Build, Tag, and, and Publish a docker image'
 branding: 
   icon: tag
@@ -36,6 +37,14 @@ inputs:
     description: Docker password
     required: true
 
+outputs:
+  tag:
+    description: Docker container Tag
+    value: ${{ steps.tag-gen.ouputs.tag }}
+  image:
+    description: Docker container Image name
+    value: ${{ steps.tag-gen.ouputs.image}}
+
 runs:
   using: "composite"
   steps:
@@ -50,6 +59,7 @@ runs:
           password: ${{ inputs.docker_password }}   
     
     - name: Build - Tag - Push
+      id: tag-gen
       shell: bash
       run: |
         DEFAULT_BRANCH=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
@@ -90,3 +100,6 @@ runs:
 
         echo "Pushing docker image $IMAGE_NAME:$IMAGE_TAG"
         docker push $IMAGE_NAME:$IMAGE_TAG
+
+        echo "::set-output name=tag::$(echo $IMAGE_TAG)"
+        echo "::set-output name=image::$(echo $IMAGE_NAME)"
