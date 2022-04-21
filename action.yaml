@@ -40,10 +40,10 @@ inputs:
 outputs:
   tag:
     description: Docker container Tag
-    value: ${{ steps.tag-gen.ouputs.tag }}
+    value: ${{ steps.build-tag-push.ouputs.tag }}
   image:
     description: Docker container Image name
-    value: ${{ steps.tag-gen.ouputs.image}}
+    value: ${{ steps.build-tag-push.ouputs.image}}
 
 runs:
   using: "composite"
@@ -58,8 +58,7 @@ runs:
           username: ${{ inputs.docker_username }}
           password: ${{ inputs.docker_password }}   
     
-    - name: Build - Tag - Push
-      id: tag-gen
+    - id: build-tag-push
       shell: bash
       run: |
         DEFAULT_BRANCH=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
@@ -101,5 +100,5 @@ runs:
         echo "Pushing docker image $IMAGE_NAME:$IMAGE_TAG"
         docker push $IMAGE_NAME:$IMAGE_TAG
 
-        echo "::set-outputs name=tag::$(echo $IMAGE_TAG)"
-        echo "::set-outputs name=image::$(echo $IMAGE_NAME)"
+        echo "::set-output name=tag::$(echo $IMAGE_TAG)"
+        echo "::set-output name=image::$(echo $IMAGE_NAME)"
