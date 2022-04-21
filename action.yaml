@@ -100,5 +100,5 @@ runs:
         echo "Pushing docker image $IMAGE_NAME:$IMAGE_TAG"
         docker push $IMAGE_NAME:$IMAGE_TAG
 
-        echo "::set-output name=tag::$(echo $IMAGE_TAG)"
-        echo "::set-output name=image::$(echo $IMAGE_NAME)"
+        echo "::set-output name=tag::$($IMAGE_TAG)"
+        echo "::set-output name=image::$($IMAGE_NAME)"
