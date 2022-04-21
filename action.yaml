@@ -40,10 +40,10 @@ inputs:
 outputs:
   tag:
     description: Docker container Tag
-    value: ${{ steps.tag-gen.ouputs.tag }}
+    value: ${{ steps.tag-gen.ouput.tag }}
   image:
     description: Docker container Image name
-    value: ${{ steps.tag-gen.ouputs.image}}
+    value: ${{ steps.tag-gen.ouput.image}}
 
 runs:
   using: "composite"
