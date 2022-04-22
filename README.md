@@ -34,7 +34,7 @@ This will checkout the code, build, tag and push using the default tags.
 
 ```yaml
 -   id: docker-publish
-    uses: bitovi/github-actions-docker-publish@1.0.0
+    uses: bitovi/github-actions-docker-publish@1
       with:
         docker_username: ${{ secrets.DOCKERHUB_USERNAME }}
         docker_password: ${{ secrets.DOCKERHUB_PASSWORD }}
