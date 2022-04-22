@@ -101,5 +101,5 @@ runs:
         docker push $IMAGE_NAME:$IMAGE_TAG
 
         echo ::set-output name=tag::'CCC'
-        echo '::set-output name=image::$($IMAGE_NAME)'
+        #echo '::set-output name=image::$($IMAGE_NAME)'
         echo 'Complete!'
