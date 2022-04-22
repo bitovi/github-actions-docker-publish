@@ -108,3 +108,7 @@ runs:
         echo "::set-output name=image::$IMAGE_NAME"
         echo 'Complete!'
 
+    - shell: bash
+      run: |
+        echo "Image: ${{ steps.build-tag-push.ouputs.image }}"
+        echo "Tag: ${{ steps.build-tag-push.ouputs.tag }}"
