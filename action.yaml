@@ -37,14 +37,6 @@ inputs:
     description: Docker password
     required: true
 
-outputs:
-  tag:
-    description: Docker container Tag
-    value: ${{ steps.tag.ouputs.tag }}
-  image:
-    description: Docker container Image name
-    value: ${{ env.tag }}
-
 runs:
   using: "composite"
   steps:
@@ -107,7 +99,3 @@ runs:
         echo "tag=$IMAGE_TAG"  >> $GITHUB_ENV
         echo "image=$IMAGE_NAME" >> $GITHUB_ENV
         echo 'Complete!'
-
-    - shell: bash
-      id: tag 
-      run: echo "::set-output name=tag::${{ env.tag }}"
