@@ -43,7 +43,7 @@ outputs:
     value: CCC
   image:
     description: Docker container Image name
-    value: ${{ steps.build-tag-push.ouput.image }}
+    value: ${{ steps.build-tag-push.ouputs.image }}
 
 runs:
   using: "composite"
@@ -100,7 +100,7 @@ runs:
         echo "Pushing docker image $IMAGE_NAME:$IMAGE_TAG"
         docker push $IMAGE_NAME:$IMAGE_TAG
 
-        echo '::set-output name=tag::CCC'
-        echo '::set-output name=image:: $IMAGE_NAME'
+        echo "::set-output name=tag::CCC"
+        echo :":set-output name=image::$IMAGE_NAME"
         echo 'Complete!'
 
