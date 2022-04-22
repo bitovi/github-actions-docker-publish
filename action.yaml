@@ -41,7 +41,9 @@ outputs:
   tag:
     description: Docker container Tag
     value: ${{ steps.tag.ouputs.tag }}
-
+  image:
+    description: Docker container Image name
+    value: ${{ env.tag }}
 
 runs:
   using: "composite"
