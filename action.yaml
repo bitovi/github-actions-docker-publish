@@ -40,10 +40,10 @@ inputs:
 outputs:
   tag:
     description: Docker container Tag
-    value: ${{ steps.build-tag-push.ouputs.tag }}
+    value: ${{ steps.tagName.ouputs.tag }}
   image:
     description: Docker container Image name
-    value: ${{ steps.build-tag-push.ouputs.image }}
+    value: ${{ steps.build-tag-push.ouput.image }}
 
 runs:
   using: "composite"
@@ -100,6 +100,8 @@ runs:
         echo "Pushing docker image $IMAGE_NAME:$IMAGE_TAG"
         docker push $IMAGE_NAME:$IMAGE_TAG
 
-        echo '::set-output name=tag:: CCC'
+        echo '::set-output name=tag::CCC'
         echo '::set-output name=image:: $IMAGE_NAME'
         echo 'Complete!'
+    - id: tagName
+      run: echo '::set-output name=tag::CCC'
