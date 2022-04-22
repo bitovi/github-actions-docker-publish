@@ -105,3 +105,4 @@ runs:
         echo 'Complete!'
     - id: tagName
       run: echo '::set-output name=tag::CCC'
+      shell: bash
