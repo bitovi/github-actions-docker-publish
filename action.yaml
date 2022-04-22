@@ -40,10 +40,8 @@ inputs:
 outputs:
   tag:
     description: Docker container Tag
-    value: ${{ steps.build-tag-push.ouputs.image }}
-  image:
-    description: Docker container Image name
-    value: ${{ steps.build-tag-push.ouputs.image }}
+    value: ${{ steps.tag.ouputs.tag }}
+
 
 runs:
   using: "composite"
@@ -104,12 +102,10 @@ runs:
         docker push $IMAGE_NAME:$IMAGE_TAG
         echo "::endgroup::"
 
-        echo "::set-output name=tag::$IMAGE_TAG"
-        echo "::set-output name=image::$IMAGE_NAME"
+        echo "tag=$IMAGE_TAG"  >> $GITHUB_ENV
+        echo "image=$IMAGE_NAME" >> $GITHUB_ENV
         echo 'Complete!'
 
     - shell: bash
-      run: |
-        echo "Done: $IMAGE_NAME:$IMAGE_TAG"
-        echo "Image: ${{ steps.build-tag-push.ouputs.image }}"
-        echo "Tag: ${{ steps.build-tag-push.ouputs.tag }}"
+      id: tag 
+      run: echo "::set-output name=tag::${{ env.tag }}"
