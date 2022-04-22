@@ -40,7 +40,7 @@ inputs:
 outputs:
   tag:
     description: Docker container Tag
-    value: CCC
+    value: ${{ steps.build-tag-push.ouputs.image }}
   image:
     description: Docker container Image name
     value: ${{ steps.build-tag-push.ouputs.image }}
@@ -94,13 +94,17 @@ runs:
 
         IMAGE_NAME="$ORG_NAME/$REPO_NAME"
 
+        echo "::group::Build Image"
         echo "Building $IMAGE_NAME"
         docker build --pull -t $IMAGE_NAME:$IMAGE_TAG .
+        echo "::endgroup::"
 
+        echo "::group::Push Image"
         echo "Pushing docker image $IMAGE_NAME:$IMAGE_TAG"
         docker push $IMAGE_NAME:$IMAGE_TAG
+        echo "::endgroup::"
 
-        echo "::set-output name=tag::CCC"
-        echo :":set-output name=image::$IMAGE_NAME"
+        echo "::set-output name=tag::$IMAGE_TAG"
+        echo "::set-output name=image::$IMAGE_NAME"
         echo 'Complete!'
 

@@ -27,15 +27,6 @@ The following can be used as `step.with` keys.  T/F types expect true or false. 
 | `org_name` | string | No | Docker org name.   | GitHub Org Name |
 | `repo_name` | string | No | The name of the Docker Repository.  | GitHub repo name. |
 
-### Outputs
-
-The following outputs can be used.
-
-| Name | Description |
-|------|-------------|
-| image | The imagename in the format org_name/repo_name |
-| tag | The tag we used on the image above |
-
 
 ## Example 1
 
