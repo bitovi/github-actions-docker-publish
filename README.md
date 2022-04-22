@@ -42,7 +42,7 @@ This will checkout the code, build, tag and push using the default tags.
 
 ## Example 2
 
-Here we check the code out since we make a change before the build / publish step.  We also show how to get the image and tag for later use.
+Here we check the code out since we make a change before the build / publish step.  We also show how to get the image and tag for later use in the same job.
 
 ```yaml
   steps:
@@ -62,8 +62,8 @@ Here we check the code out since we make a change before the build / publish ste
         org_name: bitovi
         repo_name: deploy-eks-helm
     - run: |
-        echo "Image Created:  ${{ steps.docker-publish.outputs.image }}"
-        echo "Tag Created: ${{ steps.docker-publish.outputs.tag }}"
+        echo "Image Created:  ${{ env.image }}"
+        echo "Tag Created: ${{ env.tag }}"
 ```
 
 ## License
