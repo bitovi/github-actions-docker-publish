@@ -110,5 +110,6 @@ runs:
 
     - shell: bash
       run: |
+        echo "Done: $IMAGE_NAME:$IMAGE_TAG"
         echo "Image: ${{ steps.build-tag-push.ouputs.image }}"
         echo "Tag: ${{ steps.build-tag-push.ouputs.tag }}"
