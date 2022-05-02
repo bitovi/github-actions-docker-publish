@@ -76,6 +76,6 @@ The scripts and documentation in this project are released under the [MIT Licens
 Please feel free to copy and customize this action for your specific use case, just give some credit to Bitovi as the orignal authors.  
 
 ## Need help?
-Not sure where to start, Bitovi has consultants that can help.  Drop into [Bitovi's Community Slack](https://www.bitovi.com/community/slack), and hit us up in the `#devops` channel!
+Bitovi has consultants that can help.  Drop into [Bitovi's Community Slack](https://www.bitovi.com/community/slack), and talk to us in the `#devops` channel!
 
 Need DevOps Consulting Services?  Head over to https://www.bitovi.com/devops-consulting, and book a free consultation.
