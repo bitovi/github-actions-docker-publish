@@ -12,6 +12,15 @@ The tagging logic works as follows:
 4. if this is a pull request, the the tag will be `pr-branch` where branch is the branch name.
 5. Otherwise, we'll use the branch name or tag value.
 
+```mermaid
+graph LR
+    A{value provided for image_tag} -->|Yes| B[image_tag]
+    A --> |No| C{SHA set to True} --> |Yes| D[Use SHA]
+    C --> |No| E{Default Branch} --> |Yes| F[Latest]
+    E --> |No| G{Pull Request} --> |Yes| H[pr-branch where branch is the branch name]
+    G --> |No| I[Use branch name]
+```
+
 ### Inputs
 
 The following can be used as `step.with` keys.  T/F types expect true or false.  Req is required.
