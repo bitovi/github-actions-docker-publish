@@ -87,4 +87,4 @@ Please feel free to copy and customize this action for your specific use case, j
 ## Need help?
 Bitovi has consultants that can help.  Drop into [Bitovi's Community Slack](https://www.bitovi.com/community/slack), and talk to us in the `#devops` channel!
 
-Need DevOps Consulting Services?  Head over to https://www.bitovi.com/devops-consulting, and book a free consultation.
+Need DevOps Consulting Services?  Head over to [https://www.bitovi.com/devops-consulting](https://hubs.ly/Q01bFvLw0), and book a free consultation.
