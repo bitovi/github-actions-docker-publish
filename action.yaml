@@ -1,7 +1,7 @@
 # action.yml
 name: 'Docker Build Tag Publish'
 author: Bitovi
-description: 'Build, Tag, and, and Publish a docker image'
+description: 'Build, Tag, and Publish a docker image'
 branding: 
   icon: tag
   color: red

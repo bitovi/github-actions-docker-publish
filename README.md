@@ -1,6 +1,6 @@
 # Docker Build - Tag - Publish
 
-This GitHub Action will build, tag, an publish your docker image.  The logic has been designed for our use case, but can be modifed for yours.
+This GitHub Action will build, tag, and publish your docker image.  The logic has been designed for our use case, but can be modifed for yours.
 
 The image name will default to be the same as the GitHub Repo.  
 
