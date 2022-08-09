@@ -43,7 +43,7 @@ This will checkout the code, build, tag and push using the default tags.
 
 ```yaml
 -   id: docker-publish
-    uses: bitovi/github-actions-docker-publish@1
+    uses: bitovi/github-actions-docker-publish@main
       with:
         docker_username: ${{ secrets.DOCKERHUB_USERNAME }}
         docker_password: ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -61,7 +61,7 @@ Here we check the code out since we make a change before the build / publish ste
       run: echo "Changed code" > text.txt
     - id: docker-publish
       name: Build image
-      uses: bitovi/github-actions-docker-publish@1.0.2
+      uses: bitovi/github-actions-docker-publish@1.0.3
       with:
         docker_username: ${{ secrets.DOCKERHUB_USERNAME }}
         docker_password: ${{ secrets.DOCKERHUB_PASSWORD }}
