@@ -62,7 +62,7 @@ runs:
         if [ -z "$IMAGE_TAG" ]; then
           if [[ ${{ inputs.use_sha }} == 'true' ]]; then
             IMAGE_TAG="$GITHUB_SHA"
-          elif [ "$BRANCH_OR_TAG_NAME" == "$DEFAULT_BRANCH" ] && [ ${{ inputs.use_latest }} == 'true'  ]] ; then
+          elif [ "$BRANCH_OR_TAG_NAME" == "$DEFAULT_BRANCH" ] && [ ${{ inputs.use_latest }} == 'true'  ] ; then
             IMAGE_TAG="latest"
           elif [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
             IMAGE_TAG="pr-${GITHUB_HEAD_REF}"
