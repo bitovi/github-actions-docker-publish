@@ -56,12 +56,12 @@ Here we check the code out since we make a change before the build / publish ste
 ```yaml
   steps:
     - name: Checkout 
-      uses: actions/checkout@v1.0.3
+      uses: actions/checkout@v3
     - name: do something to the code
       run: echo "Changed code" > text.txt
     - id: docker-publish
       name: Build image
-      uses: bitovi/github-actions-docker-publish@1.0.3
+      uses: bitovi/github-actions-docker-publish@v1.0.3
       with:
         docker_username: ${{ secrets.DOCKERHUB_USERNAME }}
         docker_password: ${{ secrets.DOCKERHUB_PASSWORD }}
