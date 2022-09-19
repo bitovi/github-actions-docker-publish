@@ -56,7 +56,7 @@ Here we check the code out since we make a change before the build / publish ste
 ```yaml
   steps:
     - name: Checkout 
-      uses: actions/checkout@v3
+      uses: actions/checkout@v1.0.3
     - name: do something to the code
       run: echo "Changed code" > text.txt
     - id: docker-publish
