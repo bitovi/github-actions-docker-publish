@@ -91,7 +91,7 @@ runs:
 
         echo "::group::Build Image"
         echo "Building $IMAGE_NAME"
-        docker build --pull -t $IMAGE_NAME:$IMAGE_TAG ${{ inputs.build_args }} .
+        docker build --pull -t $IMAGE_NAME:$IMAGE_TAG . ${{ inputs.build_args }}
         echo "::endgroup::"
 
         echo "::group::Push Image"
