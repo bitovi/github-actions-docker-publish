@@ -39,6 +39,9 @@ inputs:
   build_args:
     description: Add a string of values to the end of the build command
     required: false
+  working-directory:
+    description: Specify the working directory that the docker build will be run in
+    required: false
 
 runs:
   using: "composite"
@@ -89,6 +92,10 @@ runs:
 
         IMAGE_NAME="$ORG_NAME/$REPO_NAME"
 
+        if [ -n "${{ inputs.working-directory }}" ]; then
+          cd ${{ inputs.working-directory }}
+        fi
+        
         echo "::group::Build Image"
         echo "Building $IMAGE_NAME"
         docker build --pull -t $IMAGE_NAME:$IMAGE_TAG . ${{ inputs.build_args }}
