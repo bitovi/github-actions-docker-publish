@@ -94,10 +94,12 @@ runs:
 
         if [ -n "${{ inputs.working-directory }}" ]; then
           cd ${{ inputs.working-directory }}
+          echo "Changing directory into [${{ inputs.working-directory }}]"
         fi
         
         echo "::group::Build Image"
         echo "Building $IMAGE_NAME"
+        echo "docker build --pull -t $IMAGE_NAME:$IMAGE_TAG . ${{ inputs.build_args }}"
         docker build --pull -t $IMAGE_NAME:$IMAGE_TAG . ${{ inputs.build_args }}
         echo "::endgroup::"
 
