@@ -36,6 +36,9 @@ inputs:
   docker_password:
     description: Docker password
     required: true
+  build_args:
+    description: Add a string of values to the end of the build command
+    required: false
 
 runs:
   using: "composite"
@@ -88,7 +91,7 @@ runs:
 
         echo "::group::Build Image"
         echo "Building $IMAGE_NAME"
-        docker build --pull -t $IMAGE_NAME:$IMAGE_TAG .
+        docker build --pull -t $IMAGE_NAME:$IMAGE_TAG ${{ inputs.build_args }} .
         echo "::endgroup::"
 
         echo "::group::Push Image"
