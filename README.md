@@ -7,7 +7,7 @@ The image name will default to be the same as the GitHub Repo.
 # Default Tagging Logic
 The tagging logic works as follows:
 1. If you have a value for `image_tag` then we will use that value.
-2. If you set `sha` to `true` then we will tak with the SHA
+2. If you set `sha` to `true` then we will use the SHA
 3. If this is the default branch, then the tag will be `latest`
 4. if this is a pull request, the the tag will be `pr-branch` where branch is the branch name.
 5. Otherwise, we'll use the branch name or tag value.
