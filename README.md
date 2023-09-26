@@ -29,7 +29,7 @@ The following can be used as `step.with` keys.  T/F types expect true or false. 
 |------------------|---------|-----|------------------------------|---------|
 | `docker_username` | string | Yes | Dockerhub username | N/A |
 | `docker_password` | string | Yes | Dockerhub Password | N/A |
-| `checkout` | T/F | No | Determines if we should chckout the repository.  Set to `false` if this is being done in an eariler step | `true` |
+| `checkout` | T/F | No | Determines if we should checkout the repository.  Set to `false` if this is being done in an eariler step | `true` |
 | `image_tag` | string | No | Use this tag instead of the tagging logic.  | See tagging logic |
 | `use_latest` | T/F | No | The default branch gets a latest tag | `true` |
 | `sha` | T/F | No | Set to `true` to use the SHA for the tag. | `false` |
