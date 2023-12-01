@@ -3,7 +3,7 @@
 This GitHub Action will build, tag, and publish your docker image.  The logic has been designed for our use case, but can be modifed for yours.
 
 The image name will default to be the same as the GitHub Repo.  
-
+![alt](https://bitovi-gha-pixel-tracker-deployment-main.bitovi-sandbox.com/pixel/WxT-2qe0ZvLhbtpoNfVxv)
 # Default Tagging Logic
 The tagging logic works as follows:
 1. If you have a value for `image_tag` then we will use that value.
